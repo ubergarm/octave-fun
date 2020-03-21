@@ -1,8 +1,21 @@
 # octave script for fun and profit
 
-clear all;
-x = 1:10;
-y = 1:10;
+# size of mask (desired output matrix size)
+masksize = 512;
+
+# desired scale factor
+scale = 2;
+
+# create a meshgrid over which to evaluate the functions
+x = linspace(-scale, scale, masksize);
+y = x;
+[X,Y] = meshgrid(x);
+
+# evaluate a given function
+F = X .* exp(-X .^ 2 - Y .^ 2);
+
+# plot the given function
 aux=figure();
-plot(x,y,'k-');
+surf(X,Y,F);
+shading interp;
 saveas(aux, '/data/output.png', 'png');
